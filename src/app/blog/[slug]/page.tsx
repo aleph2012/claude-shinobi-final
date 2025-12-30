@@ -4,6 +4,7 @@ import { BlogPost } from '@/lib/types'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import styles from './BlogPost.module.css'
+import Avatar from '@/components/ui/Avatar/Avatar'
 
 async function getSinglePost(slug: string): Promise<BlogPost | null> {
   const response = await fetch(process.env.HYGRAPH_ENDPOINT!, {
@@ -49,8 +50,9 @@ export default async function BlogPostPage({
           <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
             {post.blogTitle}
           </h1>
-          <div className="text-lg text-gray-600 dark:text-gray-400">
-            By {post.createdBy.name} • {new Date(post.createdAt).toLocaleDateString()}
+          <div className="flex items-center space-x-3 text-lg text-gray-600 dark:text-gray-400">
+            <Avatar name={post.createdBy.name} size="md" />
+            <span>By {post.createdBy.name} • {new Date(post.createdAt).toLocaleDateString()}</span>
           </div>
         </header>
         
